@@ -1,4 +1,4 @@
-const { Thought, User, Types } = require('../models')
+const { Thought, User } = require('../models')
 
 const thoughtController = {
   getAllThoughts(req, res) {
@@ -27,20 +27,30 @@ const thoughtController = {
       })
   },
   addThought({ params, body }, res) {
-    Thought.create(body)
+    User.findById(params.userId)
+      .then((userData) => {
+        if (!userData) {
+          res.status(404).json({ message: 'No record found' })
+        }
+        return Thought.create({
+          author: userData.username,
+          thoughtText: body.thoughtText,
+          userId: userData._id,
+        })
+      })
       .then(({ _id }) => {
         return User.findOneAndUpdate(
           { _id: params.userId },
           { $push: { thoughts: _id } },
-          { new: true },
+          { new: true, runValidators: true },
         )
       })
-      .then((dbThoughtData) => {
-        if (!dbThoughtData) {
+      .then((userData) => {
+        if (!userData) {
           res.status(404).json({ message: 'No record found' })
           return
         }
-        res.json(dbThoughtData)
+        res.json(userData)
       })
       .catch((err) => res.json(err))
   },
@@ -66,13 +76,13 @@ const thoughtController = {
           return res.status(404).json({ message: 'No records found' })
         }
         return User.findOneAndUpdate(
-          { _id: params.username },
+          { _id: params.userId },
           { $pull: { thoughts: params.thoughtId } },
           { new: true },
         )
       })
-      .then((dbThoughtData) => {
-        res.json(dbThoughtData)
+      .then((dbUserData) => {
+        res.json(dbUserData)
       })
       .catch((err) => res.json(err))
   },

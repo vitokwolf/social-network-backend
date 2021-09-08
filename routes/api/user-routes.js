@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { addThought } = require('../../controllers/thought-controller')
 const {
   getAllUsers,
   getUserById,
@@ -11,8 +12,13 @@ const {
 
 router.route('/').get(getAllUsers).post(createUser)
 
-router.route('/:id').get(getUserById).delete(deleteUser).put(updateUser)
+router
+  .route('/:userId')
+  .get(getUserById)
+  .delete(deleteUser)
+  .put(updateUser)
+  .post(addThought)
 
-router.route('/:id/friends/:friendId').put(addFriend).delete(removeFriend)
+router.route('/:userId/friends/:friendId').put(addFriend).delete(removeFriend)
 
 module.exports = router
