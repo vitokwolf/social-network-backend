@@ -6,17 +6,11 @@ This is a noSQL application using MongoDB. Since this app is designed for a soci
 
 # Table of Contents
 
-- [Walkthrough Video](#walkthrough%20video)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technologies Used](#languages)
 - [Contact](#questions)
 
-## Walkthrough Video
-
-<iframe src="https://drive.google.com/file/d/1uLptOnTxjE67pxyoo7cvV1HHZ9NtTUoR/preview" width="640" height="480"></iframe>
-
-[Link to Full Walkthrough Video](https://youtu.be/mdCOlNcpuAI)
 
 ## Installation
 
@@ -63,6 +57,8 @@ The application does not have a front-end, thus the functionality can be seen on
 
 - `/api/thoughts//:thoughtId/:reactionId`
   - `DELETE` remove reaction,
+
+[Link to Full Walkthrough Video](https://youtu.be/mdCOlNcpuAI)
 
 ## Technologies Used:
 
